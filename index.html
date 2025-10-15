@@ -7,18 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
   <style>
     body {
-      background: url(image/lonev12.jpg) no-repeat center center fixed;
-      background-size: cover;
+      margin: 0;
+      padding: 0;
       font-family: 'Montserrat', sans-serif;
-      padding: 3rem;
       line-height: 1.8;
-      max-width: 750px;
-      margin: auto;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
       justify-content: center;
       align-items: center;
+      min-height: 100vh;
+      transition: background-image 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     h1 {
@@ -26,7 +27,7 @@
       text-align: center;
       color: #a0525c;
       font-size: 4rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
       animation: fadeInDown 2s ease forwards;
     }
@@ -36,9 +37,7 @@
       border-radius: 15px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
       padding: 3rem 3.5rem;
-      width: 100%;
       max-width: 600px;
-      box-sizing: border-box;
       border: 1px solid #f0dada;
       animation: fadeInScaleUp 2s ease forwards;
       animation-delay: 0.5s;
@@ -101,6 +100,12 @@ I’ll chat with you on 28 November. I promise Mulax Prime will make you happy. 
 
 ~ From Mulax Prime`;
 
+    const imageUrls = [
+      'image1.jpg',
+      'image2.jpg',
+      'image3.jpg'
+    ];
+
     let index = 0;
     const textElement = document.getElementById("text");
     const cursorElement = document.getElementById("cursor");
@@ -115,7 +120,15 @@ I’ll chat with you on 28 November. I promise Mulax Prime will make you happy. 
       }
     }
 
-    window.onload = typeWriter;
+    window.onload = () => {
+      typeWriter();
+      let currentImage = 0;
+      document.body.style.backgroundImage = `url('${imageUrls[currentImage]}')`;
+      setInterval(() => {
+        currentImage = (currentImage + 1) % imageUrls.length;
+        document.body.style.backgroundImage = `url('${imageUrls[currentImage]}')`;
+      }, 6000); // Change every 6 seconds
+    };
   </script>
 
 </body>
