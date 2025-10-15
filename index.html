@@ -3,88 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>To My Muse | Mulax Prime</title>
+  <title>🩷 To Lone, My Muse 🩷</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;500&display=swap');
-
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-      background-size: 600% 600%;
-      animation: gradientBG 20s ease infinite;
+      background: linear-gradient(to bottom right, #f8e8e8, #ffe0e0);
+      color: #4a4a4a;
+      font-family: 'Montserrat', sans-serif;
+      padding: 3rem;
+      line-height: 1.8;
+      max-width: 750px;
+      margin: auto;
       display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    @keyframes gradientBG {
-      0% {background-position:0% 50%;}
-      50% {background-position:100% 50%;}
-      100% {background-position:0% 50%;}
-    }
-
-    .container {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 40px 50px;
-      border-radius: 20px;
-      max-width: 650px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-      text-align: center;
-      color: #fff;
-      position: relative;
     }
 
     h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      color: #ffdd59;
-      text-shadow: 0 0 10px #ffdd59, 0 0 20px #ffdd59;
-      animation: glow 2s ease-in-out infinite alternate;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+      color: #a0525c;
+      font-size: 4rem;
+      margin-bottom: 2.5rem;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+      animation: fadeInDown 2s ease forwards;
     }
 
-    @keyframes glow {
-      0% {text-shadow: 0 0 5px #ffdd59, 0 0 10px #ffdd59;}
-      100% {text-shadow: 0 0 20px #ffdd59, 0 0 40px #ffdd59;}
+    .card {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      padding: 3rem 3.5rem;
+      width: 100%;
+      max-width: 600px;
+      box-sizing: border-box;
+      border: 1px solid #f0dada;
+      animation: fadeInScaleUp 2s ease forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
     }
 
-    #text {
-      font-size: 1.2rem;
-      line-height: 1.8;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#eee 1px, transparent 1px);
+      background-size: 10px 10px;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .message {
+      font-size: 1.1em;
       white-space: pre-line;
-      text-align: left;
-    }
-
-    .highlight {
-      color: #ff6b81;
-      font-weight: bold;
-      text-shadow: 0 0 8px #ff6b81;
+      color: #a0525c;
+      letter-spacing: 0.02em;
     }
 
     .typewriter-cursor {
       display: inline-block;
       width: 0.5em;
-      height: 1.2em;
-      background-color: #ffdd59;
+      height: 1.1em;
+      background-color: #a0525c;
       animation: blink 0.8s step-end infinite;
       vertical-align: middle;
       margin-left: 2px;
     }
 
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInScaleUp {
+      0% { opacity: 0; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     @keyframes blink {
       from, to { background-color: transparent; }
-      50% { background-color: #ffdd59; }
+      50% { background-color: #a0525c; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>To Lone, My Muse</h1>
-    <div id="text"></div><span id="cursor" class="typewriter-cursor"></span>
+
+  <h1>To Lone, My Muse</h1>
+  <div class="card">
+    <div class="message" id="text"></div>
+    <span id="cursor" class="typewriter-cursor"></span>
   </div>
 
   <script>
@@ -116,5 +130,6 @@ I’ll chat with you on 28 November. I promise Mulax Prime will make you happy. 
 
     window.onload = typeWriter;
   </script>
+
 </body>
 </html>
