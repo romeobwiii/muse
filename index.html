@@ -4,8 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🩷 To My Muse | Mulax Prime 🩷</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/833/833472.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+  
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -16,10 +22,22 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      transition: background-image 1s ease-in-out;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      transition: background-image 2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient overlay for readability */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(2px);
+      z-index: 0;
     }
 
     h1 {
@@ -30,20 +48,23 @@
       margin-bottom: 2rem;
       text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
       animation: fadeInDown 2s ease forwards;
+      position: relative;
+      z-index: 1;
     }
 
     .card {
       background-color: rgba(255, 255, 255, 0.85);
-      border-radius: 15px;
+      border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
       padding: 3rem 3.5rem;
-      max-width: 650px;
+      max-width: 700px;
       border: 1px solid #f0dada;
       animation: fadeInScaleUp 2s ease forwards;
       animation-delay: 0.5s;
       opacity: 0;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .message {
@@ -63,6 +84,34 @@
       margin-left: 2px;
     }
 
+    .music-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: none;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+      background-color: #f9dce1;
+    }
+
+    .music-btn img {
+      width: 26px;
+      height: 26px;
+    }
+
     @keyframes fadeInDown {
       0% { opacity: 0; transform: translateY(-20px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -70,22 +119,42 @@
 
     @keyframes fadeInScaleUp {
       0% { opacity: 0; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1); opacity: 1; }
     }
 
     @keyframes blink {
       from, to { background-color: transparent; }
       50% { background-color: #a0525c; }
     }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.6rem;
+      }
+      .card {
+        padding: 2rem;
+        max-width: 90%;
+      }
+      .message {
+        font-size: 1em;
+      }
+    }
   </style>
 </head>
 <body>
 
   <h1>To My Muse</h1>
+
   <div class="card">
     <div class="message" id="text"></div>
     <span id="cursor" class="typewriter-cursor"></span>
   </div>
+
+  <!-- Music Control -->
+  <button id="musicBtn" class="music-btn" title="Play Music">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
+  </button>
+  <audio id="bgMusic" src="music/background.mp3" loop></audio>
 
   <script>
     const message = `You’re my muse — a reminder that creativity is born from connection, emotion, and light. 🌸
@@ -116,28 +185,60 @@ Hope lives here — in every update, every dream, every quiet wish for connectio
       'image/image4.jpg'
     ];
 
-    let index = 0;
     const textElement = document.getElementById("text");
     const cursorElement = document.getElementById("cursor");
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+
+    let index = 0;
+    let currentImage = 0;
+    let typingSpeed = 40;
+    let isPlaying = false;
 
     function typeWriter() {
       if (index < message.length) {
         textElement.innerHTML += message.charAt(index);
         index++;
-        setTimeout(typeWriter, 40);
+        setTimeout(typeWriter, typingSpeed);
       } else {
         cursorElement.style.display = 'none';
       }
     }
 
+    function changeBackground() {
+      document.body.style.backgroundImage = `url('${imageUrls[currentImage]}')`;
+      currentImage = (currentImage + 1) % imageUrls.length;
+    }
+
+    // Fade-in music control
+    musicBtn.addEventListener("click", () => {
+      if (!isPlaying) {
+        bgMusic.volume = 0;
+        bgMusic.play();
+        let vol = 0;
+        const fadeIn = setInterval(() => {
+          if (vol < 1) {
+            vol += 0.05;
+            bgMusic.volume = vol;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+        isPlaying = true;
+        musicBtn.title = "Pause Music";
+        musicBtn.querySelector("img").src = "https://cdn-icons-png.flaticon.com/512/727/727240.png";
+      } else {
+        bgMusic.pause();
+        isPlaying = false;
+        musicBtn.title = "Play Music";
+        musicBtn.querySelector("img").src = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+      }
+    });
+
     window.onload = () => {
       typeWriter();
-      let currentImage = 0;
-      document.body.style.backgroundImage = `url('${imageUrls[currentImage]}')`;
-      setInterval(() => {
-        currentImage = (currentImage + 1) % imageUrls.length;
-        document.body.style.backgroundImage = `url('${imageUrls[currentImage]}')`;
-      }, 6000); // Change every 6 seconds
+      changeBackground();
+      setInterval(changeBackground, 8000); // smoother 8s cycle
     };
   </script>
 
