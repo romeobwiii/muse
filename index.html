@@ -8,9 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -128,16 +126,9 @@
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2.6rem;
-      }
-      .card {
-        padding: 2rem;
-        max-width: 90%;
-      }
-      .message {
-        font-size: 1em;
-      }
+      h1 { font-size: 2.6rem; }
+      .card { padding: 2rem; max-width: 90%; }
+      .message { font-size: 1em; }
     }
   </style>
 </head>
@@ -154,7 +145,7 @@
   <button id="musicBtn" class="music-btn" title="Play Music">
     <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
   </button>
-  <audio id="bgMusic" src="music/background.mp3" loop></audio>
+  <audio id="bgMusic" src="music/WhitePetals_KeysOfMoon.mp3" loop></audio>
 
   <script>
     const message = `You’re my muse — a reminder that creativity is born from connection, emotion, and light. 🌸
@@ -210,15 +201,15 @@ Hope lives here — in every update, every dream, every quiet wish for connectio
       currentImage = (currentImage + 1) % imageUrls.length;
     }
 
-    // Fade-in music control
+    // Music button behavior with fade in/out
     musicBtn.addEventListener("click", () => {
       if (!isPlaying) {
         bgMusic.volume = 0;
         bgMusic.play();
         let vol = 0;
         const fadeIn = setInterval(() => {
-          if (vol < 1) {
-            vol += 0.05;
+          if (vol < 0.5) { // softer volume
+            vol += 0.02;
             bgMusic.volume = vol;
           } else {
             clearInterval(fadeIn);
@@ -238,7 +229,7 @@ Hope lives here — in every update, every dream, every quiet wish for connectio
     window.onload = () => {
       typeWriter();
       changeBackground();
-      setInterval(changeBackground, 8000); // smoother 8s cycle
+      setInterval(changeBackground, 8000);
     };
   </script>
 
