@@ -1,41 +1,44 @@
-# 💖🌈 Mulax Prime: Message to My Muse 🌸✨
+# Mulax Prime: Message to My Muse
 
-A **💖 beautiful 💖, interactive 💖 webpage 💻** created to send a **💌 heartfelt 💌 message 💖** to **🌸 Lone 🌸**, the **💖 muse 💖** behind **✨ Mulax Prime ✨**.  
-This page is designed to **impress 😍**, with **glowing 💖 animations**, smooth paragraph reveals, and a **vivid 🌈, colorful 🎨 gradient background**.
+<div style="font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.6; color: #ff66b2;">
 
----
+<span id="typed-text"></span><span id="cursor" style="display:inline-block; width:0.6em; background-color:#ff66b2; animation: blink 1s step-end infinite;">&nbsp;</span>
 
-## 💖🌟 Features
+</div>
 
-- **🌈 Animated Gradient Background**: Smoothly transitions **💖 pink, 💜 purple, 💙 blue, ✨ gold** colors to create a **magical 💖 atmosphere**.  
-- **💖 Glowing Title & Highlights**: Key words like **🌸 muse 🌸** and **✨ Mulax Prime ✨** are **highlighted 💖, glowing 💖, sparkly ✨** for emphasis.  
-- **✨ Automatic Paragraph Reveal**: Each paragraph **fades in 💖 one by one** for a dynamic storytelling effect.  
-- **📱 Responsive Design**: Looks **stunning 💖** on **desktop 💻, tablet 📱, mobile 📲** devices.  
-- **🎨 Clean & Elegant Layout**: **Centered content 💖** with subtle shadows 🌑 and **colorful accents 💖💜💛**.
+<style>
+@keyframes blink {
+  0%,100% { background-color: transparent; }
+  50% { background-color: #ff66b2; }
+}
+</style>
 
----
+<script>
+const message = `Dear Lone,
 
-## 🔧 How It Works
+You are my inspiration, the spark that lights every idea, and the heartbeat of creativity in Mulax Prime.
 
-### 1️⃣ HTML Structure
-- Container holds the **💖 title 💖** and **💌 message paragraphs 💖**.  
-- Key words are wrapped in `<span class="highlight">` to make them **glow 💖 in vibrant 💖 colors**.  
+Every word here, every line of code, carries your influence and energy.
 
-### 2️⃣ CSS Styling
-- **🌈 Animated gradient background 💖** using `@keyframes` for flowing colors like **💖 pink, 💜 purple, 💙 blue, ✨ gold**.  
-- **Glow effects 💖** on **titles** and highlighted words with `text-shadow 💖`.  
-- **Fade-in animation 💖** for paragraphs using **opacity + transition 💖**.
+Thank you, Lone, for being the muse that makes Mulax Prime shine.`;
 
-### 3️⃣ JavaScript Automation
-- Automatically **fades in 💖 paragraphs one by one 💖**, creating a **dynamic 💖 reading experience**.
+const textEl = document.getElementById('typed-text');
+let i = 0;
+const speed = 40;
 
-```javascript
-const paragraphs = document.querySelectorAll('.fade');
-let delay = 0;
-paragraphs.forEach(p => {
-  setTimeout(() => {
-    p.style.transition = "opacity 1.5s ease-in";
-    p.style.opacity = 1;
-  }, delay);
-  delay += 1500;
-});
+function typeWriter() {
+  if(i < message.length){
+    // Highlight "Lone" in gold
+    if(message.slice(i, i+4) === "Lone"){
+      textEl.innerHTML += '<span style="color:#facc15; font-weight:bold;">Lone</span>';
+      i += 4;
+    } else {
+      textEl.innerHTML += message.charAt(i);
+      i++;
+    }
+    setTimeout(typeWriter, speed);
+  }
+}
+
+window.onload = typeWriter;
+</script>
